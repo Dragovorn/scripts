@@ -61,6 +61,7 @@ for dir in ${TEMP_DIR}work/*/ ; do
 
     DIR_FILE=`basename $dir`
     INSTALLED_DIR="${INSTALL_DIR}${DIR_FILE}"
+    mkdir -p $INSTALLED_DIR
 
     if [ -d $INSTALLED_DIR ]; then
         read -p "${INSTALLED_DIR} already exists! Overwrite? (Y/N): "  -n 1 -r
@@ -75,14 +76,12 @@ for dir in ${TEMP_DIR}work/*/ ; do
         rm -fr $INSTALLED_DIR
     fi
 
-    mv $dir $INSTALL_DIR
+    mv $dir $INSTALLED_DIR
 
     if [ -f $SCRIPT_PATH ]; then
         echo "Removing pre-existing ${SCRIPT_PATH}"
         rm $SCRIPT_PATH
     fi
-
-    #OLD_HOME="${JAVA_HOME}"
 
     echo "Creating: ${SCRIPT_PATH}"
     echo "export MAVEN_HOME=${INSTALLED_DIR}" >> $SCRIPT_PATH
